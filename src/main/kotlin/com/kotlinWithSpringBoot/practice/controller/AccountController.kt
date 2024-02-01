@@ -5,6 +5,7 @@ import com.kotlinWithSpringBoot.practice.model.Account
 import com.kotlinWithSpringBoot.practice.service.AccountService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/account")
+@EnableTransactionManagement
 class AccountController(
     private val accountService: AccountService
 ) {
@@ -22,6 +24,17 @@ class AccountController(
     fun createAccount(@RequestBody account: Account): ResponseEntity<Any> {
         val response = try {
             accountService.createAccount(account)
+        } catch (exception: Exception) {
+            exception.message
+        }
+        val jsonObject: JSONPObject = JSONPObject("message", response)
+        return ResponseEntity(jsonObject, HttpStatus.OK)
+    }
+
+    @PostMapping("/createTransactional")
+    fun createAccountTransactional(@RequestBody account: Account): ResponseEntity<Any> {
+        val response = try {
+            accountService.createAccountTransactional(account)
         } catch (exception: Exception) {
             exception.message
         }

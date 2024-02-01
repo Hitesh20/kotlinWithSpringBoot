@@ -36,4 +36,8 @@ class BankServiceImplementation(
         return bankRepository.save(bankToUpdate)
     }
 
+    override fun updateTransactionFees(bankId: Int, fees: Double) {
+        bankRepository.updateTransactionFees(bankId, fees)
+    }
+
 }

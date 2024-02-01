@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service
 interface BankService {
     fun registerBank(bankDetails: Bank): Bank
     fun updateBankDetails(id: Int, bankDetails: Any): Bank
+    fun updateTransactionFees(bankId: Int, fees: Double)
 }

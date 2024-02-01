@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -36,6 +37,17 @@ class BankController(
     fun updateBankDetails(@PathVariable("id") bankId: Int, @RequestBody bankDetails: Any): ResponseEntity<Any> {
         val response: Any? = try {
             bankService.updateBankDetails(bankId, bankDetails)
+        } catch (exception: Exception) {
+            exception.message
+        }
+        val jsonObject: JSONPObject = JSONPObject("message", response);
+        return ResponseEntity<Any>(jsonObject, HttpStatus.OK)
+    }
+
+    @PatchMapping("/updateFees/{id}")
+    fun updateBankDetails(@PathVariable("id") bankId: Int, @RequestParam fees: Double): ResponseEntity<Any> {
+        val response: Any? = try {
+            bankService.updateTransactionFees(bankId, fees)
         } catch (exception: Exception) {
             exception.message
         }

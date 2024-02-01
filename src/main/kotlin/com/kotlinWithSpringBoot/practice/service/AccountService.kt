@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 @Service
 interface AccountService {
     fun createAccount(account: Account): Account
+    fun createAccountTransactional(account: Account): Account
     fun fetchAll(): MutableList<Account>?
     fun fetchRange(min: Int, max: Int): MutableList<Account>?
     fun fetchRangePositional(min: Int, max: Int): MutableList<Account>?
