@@ -27,6 +27,7 @@ class AccountController(
         } catch (exception: Exception) {
             exception.message
         }
+        println("Hitesh")
         val jsonObject: JSONPObject = JSONPObject("message", response)
         return ResponseEntity(jsonObject, HttpStatus.OK)
     }
